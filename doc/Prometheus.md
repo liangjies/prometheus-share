@@ -76,6 +76,14 @@ scrape_configs:
 
 
 ### 应用接入
+#### Golang
+
+![](img/golang_imoport.png)
+
+#### Python
+
+
+
 
 ### Prometheus 告警
 
