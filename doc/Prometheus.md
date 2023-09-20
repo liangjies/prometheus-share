@@ -160,6 +160,18 @@ groups:
       description: "{{ $labels.instance }} CPU usage above 85% (current value: {{ $value }})"
 ```
 
+
+
+
+
+| 服务          | 地址                           |
+| ------------- | ------------------------------ |
+| alertmanager  | http://localhost:9093/#/alerts |
+| prometheus    | http://localhost:9090/graph    |
+| node_exporter | http://localhost:9100/metrics  |
+
+
+
 ## 相关链接
 
 - [Prometheus 官方网站](https://prometheus.io/)
