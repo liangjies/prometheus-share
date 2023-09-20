@@ -90,6 +90,53 @@ scrape_configs:
 
 
 ### Prometheus 告警
+告警在 Prometheus 的架构中被划分成两个独立的部分。如下所示，通过在 Prometheus 中定义AlertRule（告警规则），Prometheus 会周期性的对告警规则进行计算，如果满足告警触发条件就会向 Alertmanager 发送告警信息。
+
+![img](https://2584451478-files.gitbook.io/~/files/v0/b/gitbook-legacy-files/o/assets%2F-LBdoxo9EmQ0bJP2BuUi%2F-LVMF4RtPS-2rjW9R-hG%2F-LPS9QhUbi37E1ZK8mXF%2Fprometheus-alert-artich.png?generation=1546578333144123&alt=media)
+
+#### 部署 Alertmanager
+
+https://prometheus.io/download/
+
+#### 关联 Prometheus 与 Alertmanager
+在Prometheus的架构中被划分成两个独立的部分。Prometheus负责产生告警，而Alertmanager负责告警产生后的后续处理。因此Alertmanager部署完成后，需要在Prometheus中设置Alertmanager相关的信息。
+
+编辑 Prometheus 配置文件 prometheus.yml，并添加以下内容
+
+```yaml
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: ['localhost:9093']
+```
+
+#### 接收告警信息
+
+支持邮件、企业微信、Telegram、Discord、钉钉等
+
+https://prometheus.io/docs/alerting/latest/configuration/#wechat_config
+
+
+### Prometheus 定义告警规则
+
+一条典型的告警规则如下所示：
+
+```yaml
+groups:
+- name: example
+  rules:
+  - alert: HighErrorRate  # 告警规则的名称。
+    expr: job:request_latency_seconds:mean5m{job="myjob"} > 0.5 # 基于PromQL表达式告警触发条件，用于计算是否有时间序列满足该条件。
+    for: 10m # 评估等待时间，可选参数。用于表示只有当触发条件持续一段时间后才发送告警。在等待期间新产生告警的状态为pending。
+    labels: # 自定义标签，允许用户指定要附加到告警上的一组附加标签。
+      severity: page
+    annotations:  # 用于指定一组附加信息，比如用于描述告警详细信息的文字等，annotations的内容在告警产生时会一同作为参数发送到Alertmanager。
+      summary: High request latency
+      description: description info
+```
+
+
+
 
 
 ### Prometheus 的核心概念
