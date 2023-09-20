@@ -137,49 +137,28 @@ groups:
 
 
 
+修改Prometheus配置文件prometheus.yml,添加以下配置：
 
+```yaml
+rule_files:
+  - rules/*.rules
+```
 
-### Prometheus 的核心概念
+创建告警文件hoststats-alert.rules内容如下：
 
-- 多维数据模型
-- 时间序列
-- 标签和标签匹配
-- Exporter 和数据采集
-
-### 3. 数据采集和监控
-
-- 使用 Exporter 收集数据
-- 内置 Exporter 和社区 Exporter
-- 自定义监控指标
-- 示例：监控一个应用程序
-
-### 4. Prometheus 查询语言（PromQL）
-
-- 基本查询
-- 聚合操作
-- 图表和可视化
-- 实际查询示例
-
-### 5. 数据存储和持久性
-
-- 内置时间序列数据库
-- 压缩和数据保留策略
-- 高可用性存储
-- 数据备份和恢复
-
-### 6. 警报和通知
-
-- Prometheus 警报规则
-- 集成告警通知方式
-- 实际警报设置
-
-### 7. 实际应用场景
-
-- 容器化环境下的 Prometheus
-- 云原生应用程序监控
-- 微服务架构的监控
-- 最佳实践和案例研究
-
+```yaml
+groups:
+- name: hostStatsAlert
+  rules:
+  - alert: hostCpuUsageAlert
+    expr: sum(avg without (cpu)(irate(node_cpu{mode!='idle'}[5m]))) by (instance) > 0.85
+    for: 1m
+    labels:
+      severity: page
+    annotations:
+      summary: "Instance {{ $labels.instance }} CPU usgae high"
+      description: "{{ $labels.instance }} CPU usage above 85% (current value: {{ $value }})"
+```
 
 ## 相关链接
 

@@ -16,3 +16,4 @@ Enforcer-admin
 .idea
 alertmanager
 prometheus
+node_exporter
