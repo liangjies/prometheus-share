@@ -78,7 +78,7 @@ scrape_configs:
 ### 应用接入
 #### Golang
 
-![](img/golang_imoport.png)
+![](doc/img/golang_imoport.png)
 
 #### Python
 
@@ -92,7 +92,7 @@ scrape_configs:
 ### Prometheus 告警
 告警在 Prometheus 的架构中被划分成两个独立的部分。如下所示，通过在 Prometheus 中定义AlertRule（告警规则），Prometheus 会周期性的对告警规则进行计算，如果满足告警触发条件就会向 Alertmanager 发送告警信息。
 
-![img](https://2584451478-files.gitbook.io/~/files/v0/b/gitbook-legacy-files/o/assets%2F-LBdoxo9EmQ0bJP2BuUi%2F-LVMF4RtPS-2rjW9R-hG%2F-LPS9QhUbi37E1ZK8mXF%2Fprometheus-alert-artich.png?generation=1546578333144123&alt=media)
+![img](doc/img/prometheus-alert-artich.png)
 
 #### 部署 Alertmanager
 
